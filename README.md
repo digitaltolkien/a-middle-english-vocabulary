@@ -1,2 +1,3 @@
-# a-middle-english-vocabulary
-marking up A Middle English Vocabulary by J. R. R. Tolkien
+# A Middle English Vocabulary
+
+marking up _A Middle English Vocabulary_ by J. R. R. Tolkien
