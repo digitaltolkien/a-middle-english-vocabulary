@@ -14,6 +14,10 @@ A project to mark up _A Middle English Vocabulary_ by J. R. R. Tolkien and extra
 
 * `corrected.txt` — corrected file (mostly transcription errors)
 
-but also:
+but also, the following errors in printed version:
 
-* Wlaffyng is missing `[` in printed version.
+* Wlaffyng is missing `[`
+* Ȝa, Ȝaa has `OE` for `OE.` in etymology
+* Ver(r)ay has `OF.` for `OFr.` in etymology
+* Noþeles has `OE` for `OE.` in etymology
+* Werkman, Workeman has `OE` for `OE.` in etymology

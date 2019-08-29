@@ -2517,7 +2517,7 @@ XIII _a_ 5. [OE. _clott_.]
 
 #Cloþ#, _n._ a cloth, XV _f_ 8; cloth, VIII _a_ 14; #Cloþes#, &c., _pl._
 clothes, I 165, 236, II 408, VII 175, VIII _b_ 18, XI _b_ 257, XIII _a_
-9, &c. [OE _clāþ_.]
+9, &c. [OE. _clāþ_.]
 
 #Cloþed#, _pp._ clothed, VIII _b_ 2. [OE. (late) _clāþian_.]
 
@@ -2788,7 +2788,7 @@ _adj._); _of courtaysye_, _by cortaysye_, &c. by especial favour, VI 97,
 Kysse.
 
 #Cost#, _n._^1 border, IX 192; #Costes#, _pl._ coasts, regions, VII 83,
-146. [OFr. _coste_]
+146. [OFr. _coste_.]
 
 #Cost#, _n._^2 expenditure, cost, XI _b_ 169; ? means (to meet expense),
 XI _b_ 141. [OFr. _cost_.]
@@ -4470,7 +4470,7 @@ _fit_, terrible or violent experience, &c.; ? OE. (once) _fitt_,
 contest.]
 
 #Fyue#; #Uif#, #Vif#, #Vyf# (III); _adj._ five, III 22, 23, 27, V 125,
-VI 91 (_see_ Þo, _adv._), VIII _a_ 319, XIII _b_ 32, &c. [OE. _fīf._]
+VI 91 (_see_ Þo, _adv._), VIII _a_ 319, XIII _b_ 32, &c. [OE. _fīf_.]
 
 #Flaggatis#, _n. pl._ fagots, X 23, 25, 27. [? Alteration of Faggatis,
 _q.v._; another reading is _fagaldis_.]
@@ -5424,7 +5424,7 @@ _gru_, grain; _cf._ Grot.]
 #Guttes#, _n. pl._ entrails, VIII _a_ 171. [OE. _guttas_.]
 
 
-#Ȝa#, #Ȝaa#, _adv._ yea, yes, XVI 109, 305. [OE _geā_.] _See_
+#Ȝa#, #Ȝaa#, _adv._ yea, yes, XVI 109, 305. [OE. _geā_.] _See_
 Ȝe, Yei.
 
 #Ȝaf#. _See_ Ȝeue.
@@ -5567,7 +5567,7 @@ every one, IV _a_ 49. [OE. _geong_.]
 #Ȝor#. _See_ Ȝe, _pron._
 
 #Ȝore#, _adv._ (since long ago), a long while, II 559, V 46, VI 226,
-XV _c_ 32. [OE. _geāra_]
+XV _c_ 32. [OE. _geāra_.]
 
 #Ȝou#, #Ȝour(e)#, #Ȝow(re)#. _See_ Ȝe.
 
@@ -5881,7 +5881,7 @@ _v._]
 #Heiste#; #Heite#; #Held(e)#. _See_ Hote; Hete, _n._; Holde(n).
 
 #Helde#, _v. intr._ to incline, turn, V 263; #Heldand#, _pres. p._
-inclined, IV _a_ 28. [OE. #héldan#.]
+inclined, IV _a_ 28. [OE. _héldan_.]
 
 #Hele#, #Heele# (XVI), _n._ health, VIII _a_ 256, _b_ 7, 10;
 restoration, XII _a_ 18; salvation, XVI 38, 67, 106. [OE. _hǣlu_.]
@@ -8677,7 +8677,7 @@ _cf._ OFr. _nois mug(u)ede_, &c.]
 of ME. _wiþstonden_, OE. _wiþstándan_.]
 
 #Noþeles#, _adv._ all the same, nevertheless, XIII _a_ 6, _b_ 3, &c.;
-#Natheles#, IX 51, XII #a# 130, &c. [OE _nā-þe-lǣs_.]
+#Natheles#, IX 51, XII #a# 130, &c. [OE. _nā-þe-lǣs_.]
 
 #Noþer#, _adj._ no other; _<no> no noþer_, nor any other, II 230. [OE.
 _nān_ + _ōþer_.]
@@ -9529,7 +9529,7 @@ _adv._ promptly, VIII _a_ 87. [OFr. _prest_.]
 #Prest(e)#, _n._ priest, I 8, 9, III 49 (_dat._), 53, &c.; #Preost#, XI
 _b_ 291. [OE. _prēost_.]
 
-#Presthod#, _n._ priesthood, XI _b_ 47. [OE _prēost-hād_.]
+#Presthod#, _n._ priesthood, XI _b_ 47. [OE. _prēost-hād_.]
 
 #Pretermynable#, _adj._ who predetermines, fore-ordains, VI 236. [Appar.
 invented for rhyme from _pre_ + _terminable_ used actively.]
@@ -12768,7 +12768,7 @@ _(ge-)þō̆ht_.]
 
 #Þousand(e)#, #-end#, #-ond#; #Þouzond#; #Thowsande#; _n. sg._ and _pl._
 thousand, III 30, 34, VIII _a_ 185, XI _b_ 279, XIII _b_ 31, XVI 39, &c.
-[OE _þūsend_.]
+[OE. _þūsend_.]
 
 #Thousendfold#, _adj._; _many thousendfold_, in many thousands, XII _a_
 97. [OE. _þūsend-fáld_.]
@@ -12904,7 +12904,7 @@ _a_ 138, XI _b_ 49, XVII 55, &c. [OFr. _venjance_.]
 #Venymous#, _adj._ poisonous, IX 203. [OFr. _venimous_.]
 
 #Ver(r)ay#, _adj._ true, IX 65, XVII 1; _adv._ truly, very, XVII 198;
-#Verayly#, _adv._ truly, V 177. [OF. _verai_.]
+#Verayly#, _adv._ truly, V 177. [OFr. _verai_.]
 
 #Verament#, _adv._ assuredly, XVII 6. [OFr. _veirement_, _veraiment_.]
 
@@ -13518,7 +13518,7 @@ fabric, II 374; _werkis_, works, fortress, XVI 191; action, deed, IV _a_
 
 #Werkman#, #Workeman#, labourer, craftsman, VIII _a_ 308, _b_ 25;
 #Werk(e)men#, _pl._ VI 147, VIII _a_ 53, IX 119, &c.; _my werkemen_,
-doers of my will, XVI 17. [OE _we(o)rc-mann_.]
+doers of my will, XVI 17. [OE. _we(o)rc-mann_.]
 
 #Werldes#; #Wern(e)#. _See_ World; Was.
 
