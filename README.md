@@ -22,3 +22,8 @@ but also, the following errors in printed version:
 * Noþeles has `OE` for `OE.` in etymology
 * Werkman, Workeman has `OE` for `OE.` in etymology
 * Goddesse has `OE` for `OE.` in etymology
+
+
+## Code for Etymology Patterns
+
+Currently running `./check_etymologies.py` and building regular expressions in `etym_patterns.py`.
