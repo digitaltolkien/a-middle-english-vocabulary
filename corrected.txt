@@ -5188,7 +5188,7 @@ wealth, III 8 (_dat._), IV _b_ 81, VIII _a_ 225, XII _b_ 35, XIV _c_ 75,
 &c.; #Godes# (and forms as above) _pl._, goods, III 1, VII 122, VIII _a_
 218, XI _b_ 272, XII _b_ 48, XIV _b_ 11, &c. [OE. _gōd_, n.]
 
-#Goddesse#, _n._ goddess, XII _a_ 44. [OE _god_ + OFr. _-esse_.]
+#Goddesse#, _n._ goddess, XII _a_ 44. [OE. _god_ + OFr. _-esse_.]
 
 #Godenisse#, #God(e)nesse#, #Goodnesse#, _n._ goodness, bounty, II 55,
 VI 133, VIII _a_ 132, IX 329, &c. [OE. _gōd-nes_.]

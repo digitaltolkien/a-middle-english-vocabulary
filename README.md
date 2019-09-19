@@ -21,3 +21,4 @@ but also, the following errors in printed version:
 * Ver(r)ay has `OF.` for `OFr.` in etymology
 * Noþeles has `OE` for `OE.` in etymology
 * Werkman, Workeman has `OE` for `OE.` in etymology
+* Goddesse has `OE` for `OE.` in etymology
