@@ -38,6 +38,6 @@ Source code is run through `black`, `isort` and `flake8` which are all dev depen
 
 The underlying dictionary was published prior to 1923 and is considered to be in the public domain. The source material from Project Gutenberg is subject to the Project Gutenberg License.
 
-Code is made available under an MIT License.
+Code is made available under an MIT License (see `LICENSE`)
 
 Data is made available under a Creative Commons Attribution-ShareAlike 4.0 International Public License.
