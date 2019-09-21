@@ -34,6 +34,11 @@ There are currently no dependencies for running the script above.
 Source code is run through `black`, `isort` and `flake8` which are all dev dependencies in `Pipfile`.
 
 
+## Planning the TEI Markup
+
+See [Notes on Structure](https://github.com/digitaltolkien/a-middle-english-vocabulary/wiki/Notes-on-Structure). If you have ideas about the TEI markup, create an issue for a particular entry, giving the markup in `corrected.txt`, the proposed TEI markup and we can discuss open questions there.
+
+
 ## License
 
 The underlying dictionary was published prior to 1923 and is considered to be in the public domain. The source material from Project Gutenberg is subject to the Project Gutenberg License.
