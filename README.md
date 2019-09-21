@@ -23,6 +23,8 @@ but also, the following errors in printed version:
 * **Werkman, Workeman** has `OE` for `OE.` in etymology
 * **Goddesse** has `OE` for `OE.` in etymology
 * **Dedir** has `MnE.` for `Mn.E.` in etymology
+* **Breue** has `Med. L.` for `Med.L.` in etymology
+* **Danes** has `Med. L.` for `Med.L.` in etymology
 
 
 ## Code for Etymology Patterns
