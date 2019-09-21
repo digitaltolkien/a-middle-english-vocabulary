@@ -8,8 +8,7 @@ failure = 0
 first_error = None
 
 for etymology in sorted(
-    (extract_etymology(entry) for entry in get_entries()),
-    key=lambda x: (len(x), x)
+    (extract_etymology(entry) for entry in get_entries()), key=lambda x: (len(x), x)
 ):
     if etymology:
         c = check_etymology(etymology)
