@@ -1,21 +1,60 @@
 import re
 
+languages = [  # without final period
+    "AFr",  # Anglo-French
+    "Anglo-L",  # Anglo-Latin (?)
+    "Du",  # Dutch
+    "E",  # English
+    "Mn.E",  # Modern English
+    "Fr",  # French
+    "Fris",  # (Modern) Frisian (dialects)
+    "G",  # German
+    "Goth",  # Gothic
+    "Icel",  # (Modern) Icelandic
+    # Kt.; OKt. Kentish; Kentish dialect of Old English.
+    "L",  # Latin
+    "Med.L",  # Mediaeval Latin
+    "LG",  # ???
+    "MDu",  # Middle Dutch
+    "ME",  # Middle English
+    "MHG",  # Middle High German
+    "MLG",  # Middle Low German
+    # Nth. Northumbrian;
+    "ONth",  # Northumbrian dialect of Old English.
+    # NWM. North West Midland.
+    "OE",  # Old English
+    "OFr",  # Old French
+    "OFris",  # Old Frisian
+    "OHG",  # Old High German
+    "OIcel",  # Old Icelandic (?)
+    "OIr",  # Old Irish
+    "ON",  # Old NOrse
+    "ONFr",  # Northern dialects of Old French
+    "OS",  # Old Saxon (Old Low German)
+    "OSwed",  # Old Swedish (?)
+    "Swed",  # Swedish
+    # WS.; OWS. West Saxon (dialect of Old English).
+]
+
 IT = r"_[^_]+_"
-LANG = r"(L|OE|OFr|ONFr|ON|AFr|MLG|ME|Mn.E|MDu|Med.L|Du|G|OIcel|LG|Anglo-L|OFris)\."
+LANG = fr"({'|'.join(languages)})\."
 CAP_WORD = r"[A-ZÞ]([a-zþȝ]|p\(p\))+(\([en]\))?"
-GRM = r"(prep|n|v|adj|adv|pl|fem|str|wk|neut|dat|acc|gen|sg|compar\. adv|nom|pa|t|3 sg|conj|intr|compar)\."
+GRM = r"(prep|n|v|adj|adv|pl|fem|neut|masc|str|wk|dat|acc|gen|sg|nom|pa|t|3 sg|conj|intr|compar|collect|refl|pret|pres)\."
 SUP = r"\^\d+"
 QV = r"_q\.v\._"
-NED = r"_N\.E\.D\._"
-GLOSS = r"[a-z ']+"
+NED = r"_N\.E\.D\._"  # The Oxford (New) English Dictionary
+GLOSS = r"([a-z\- ']+|Briton)"
 ETC = r"&c\."
 INFL_BY = r"infl\. by"
+REF = "VII 167"
 
 GRMS = fr"{GRM}( {GRM})*"
 
 regexes = [
     re.compile(r)
     for r in [
+
+        fr"_Cf\._ {LANG} {IT}, {GLOSS}, {GLOSS}\.$",  # italics inconsistency
         fr"_See_ next\.$",
         fr"{CAP_WORD} \+ {CAP_WORD}, _{GRM}_{SUP}$",
         fr"{CAP_WORD} \+ {CAP_WORD}, _{GRM}_$",
@@ -24,6 +63,7 @@ regexes = [
         fr"{CAP_WORD}- \+ {CAP_WORD}, {QV}$",
         fr"{CAP_WORD}, _{GRM}_ \+ {CAP_WORD}, {QV}$",
         fr"{CAP_WORD}, _{GRM}_ \+ {CAP_WORD}\.$",
+        fr"{CAP_WORD}, _{GRM}_ \+ {LANG} {IT} from {CAP_WORD}\.$",
         fr"{CAP_WORD}, {CAP_WORD} {INFL_BY} {CAP_WORD}\.$",
         fr"{CAP_WORD}, {CAP_WORD} \+ {CAP_WORD}, {QV}$",
         fr"{IT} \+ {LANG} {IT}, {GLOSS}\.$",
@@ -32,9 +72,17 @@ regexes = [
         fr"{LANG} {IT} {GLOSS}\.$",
         fr"{LANG} {IT} {GRM}, {GLOSS}\.$",
         fr"{LANG} {IT} {GRMS}$",
+        fr"{LANG} {IT} \({GLOSS}\) {IT} \({IT}\)\.$",
         fr"{LANG} {IT} \({IT}, {GRM}\); {IT}\.$",
         fr"{LANG} {IT} \({IT}\) \+ {LANG} {IT}\.$",
+        fr"{LANG} {IT} \({IT}\), {IT}, {IT}.",
+        fr"{LANG} {IT} \({IT}\), or {IT}\.$",
+        fr"{LANG} {IT} \({IT}\); {IT}, {IT}\.$",
         fr"{LANG} {IT} \({IT}\)\.$",
+        fr"{LANG} {IT} \({LANG} {IT}, {LANG} {IT}\)\.$",
+        fr"{LANG} {IT} \(a land-measure\); {LANG} {IT}\.$",
+        fr"{LANG} {IT} \(cf\. {LANG} {IT}, {LANG} {IT}\)\.$",
+        fr"{LANG} {IT} \(from {IT}\) \+ {IT}\.$",
         fr"{LANG} {IT} \(in Sweet\)\.$",
         fr"{LANG} {IT} \(late {IT}\), {ETC}$",
         fr"{LANG} {IT} \(once\), {IT}\.$",
@@ -45,12 +93,17 @@ regexes = [
         fr"{LANG} {IT} \+ {IT} \(_see_ {CAP_WORD}\)\.$",
         fr"{LANG} {IT} \+ {IT} \(intensive\)\.$",
         fr"{LANG} {IT} \+ {IT} indef\.$",
+        fr"{LANG} {IT} \+ {IT}, {GLOSS} \(_see_ {CAP_WORD}\)\.",
         fr"{LANG} {IT} \+ {IT}, {GRMS}$",
         fr"{LANG} {IT} \+ {IT}, pp\. of {IT}\.$",
         fr"{LANG} {IT} \+ {IT}, pp\.$",
+        fr"{LANG} {IT} \+ {IT}; cf\. {IT}, {ETC}$",
         fr"{LANG} {IT} \+ {IT}; cf\. {IT}\.$",
+        fr"{LANG} {IT} \+ {IT}; cf\. {LANG} {IT}\.$",
         fr"{LANG} {IT} \+ {IT}; cf\. prec\.$",
         fr"{LANG} {IT} \+ {IT}\.$",
+        fr"{LANG} {IT} \+ {LANG} {IT}, {LANG} {IT}\.$",
+        fr"{LANG} {IT} \+ {LANG} {IT}; cf\. {LANG} {IT}\.$",
         fr"{LANG} {IT} \+ {LANG} {IT}\.$",
         fr"{LANG} {IT} \+ \? {IT} \? {IT}\.$",
         fr"{LANG} {IT} and {IT}\.$",
@@ -61,8 +114,10 @@ regexes = [
         fr"{LANG} {IT} or {IT}, infl\. by next\.$",
         fr"{LANG} {IT} rel\. to {IT}\.$",
         fr"{LANG} {IT} through {LANG}$",
+        fr"{LANG} {IT} under influence of {IT}\.$",
         fr"{LANG} {IT}, {CAP_WORD}\.$",
         fr"{LANG} {IT}, {ETC}, {GLOSS}\.$",
+        fr"{LANG} {IT}, {GLOSS} \({GLOSS}\)\.$",
         fr"{LANG} {IT}, {GLOSS} \(sound\)\.$",
         fr"{LANG} {IT}, {GLOSS} \+ {LANG} {IT}\.$",
         fr"{LANG} {IT}, {GLOSS}, {GLOSS}\.$",
@@ -71,9 +126,12 @@ regexes = [
         fr"{LANG} {IT}, {GLOSS}; _cf\._ {CAP_WORD}\.$",
         fr"{LANG} {IT}, {GLOSS}; {GRMS} {IT}\.$",
         fr"{LANG} {IT}, {GLOSS}; {IT}, {GLOSS}\.$",
+        fr"{LANG} {IT}, {GLOSS}; {LANG} {IT}, {GLOSS}\.$",
         fr"{LANG} {IT}, {GLOSS}; cf\. {LANG} {IT}\.$",
+        fr"{LANG} {IT}, {GLOSS}; see {NED}$",
         fr"{LANG} {IT}, {GLOSS}\.$",
         fr"{LANG} {IT}, {GLOSS}\.$",  # inconsistent comma?
+        fr"{LANG} {IT}, {GRM} {IT}, {IT}\.$",
         fr"{LANG} {IT}, {GRM} \+ {IT}\.$",
         fr"{LANG} {IT}, {GRM} and {GRM}; {IT}, {GRM}$",
         fr"{LANG} {IT}, {GRM} and {GRM}$",
@@ -81,9 +139,14 @@ regexes = [
         fr"{LANG} {IT}, {GRM}, {GRM}; {IT}, {GRM}$",
         fr"{LANG} {IT}, {GRM}, {IT}, {GRM}$",
         fr"{LANG} {IT}, {GRM}, and {IT}, {GRM}$",
+        fr"{LANG} {IT}, {GRM}; {IT} \({GRMS} {IT}\), {GRM}$",
+        fr"{LANG} {IT}, {GRM}; {IT}, {GRM}; {IT}, {GRM}$",
         fr"{LANG} {IT}, {GRM}; {IT}\.$",
+        fr"{LANG} {IT}, {GRM}; cf\. {IT}\.$",
+        fr"{LANG} {IT}, {GRM}; cf\. {LANG} {IT}\.$",
         fr"{LANG} {IT}, {GRM}$",
         fr"{LANG} {IT}, {GRMS} {IT}\.$",
+        fr"{LANG} {IT}, {GRMS}, {GLOSS}\.$",
         fr"{LANG} {IT}, {GRMS}$",  # inconsistent comma?
         fr"{LANG} {IT}, {INFL_BY} {IT}\.$",
         fr"{LANG} {IT}, {INFL_BY} next\.$",
@@ -98,16 +161,24 @@ regexes = [
         fr"{LANG} {IT}, {IT}, {GLOSS}\.$",
         fr"{LANG} {IT}, {IT}, {GRM}{SUP}$",
         fr"{LANG} {IT}, {IT}, {IT}, {ETC}$",
+        fr"{LANG} {IT}, {IT}, {IT}, {IT}, {ETC}$",
+        fr"{LANG} {IT}, {IT}, {IT}, {IT}\.$",
+        fr"{LANG} {IT}, {IT}, {IT}; see {NED}$",
         fr"{LANG} {IT}, {IT}, {IT}\.$",
+        fr"{LANG} {IT}, {IT}, {LANG} {IT}\.$",
+        fr"{LANG} {IT}, {IT}, occas\. {IT}\.$",
         fr"{LANG} {IT}, {IT}, str\. and wk\.$",
         fr"{LANG} {IT}, {IT}, str\., later wk\.$",
         fr"{LANG} {IT}, {IT}; {IT}; {IT}\.$",
         fr"{LANG} {IT}, {IT}; {IT}\.$",
         fr"{LANG} {IT}, {IT}; {LANG} {IT}\.$",
+        fr"{LANG} {IT}, {IT}; cf\. {LANG} {IT}\.$",
         fr"{LANG} {IT}, {IT}; pp\. {IT}\.$",
         fr"{LANG} {IT}, {IT}\.$",
+        fr"{LANG} {IT}, {LANG} {IT}, {ETC}, pp\.$",
         fr"{LANG} {IT}, {LANG} {IT}, {GLOSS}\.$",
         fr"{LANG} {IT}, {LANG} {IT}, {GRM}$",
+        fr"{LANG} {IT}, {LANG} {IT}; see {NED}$",
         fr"{LANG} {IT}, {LANG} {IT}\.$",
         fr"{LANG} {IT}, \? {INFL_BY} {IT}, {ETC}",
         fr"{LANG} {IT}, \? {INFL_BY} {IT}\.$",
@@ -117,21 +188,28 @@ regexes = [
         fr"{LANG} {IT}, \(once in gloss\.\) {IT}\.$",
         fr"{LANG} {IT}, \(once\) {IT}\.$",
         fr"{LANG} {IT}, and {IT} prefix\.$",
+        fr"{LANG} {IT}, and with weak stress {IT}\(\?\)\.$",
         fr"{LANG} {IT}, cf\. {IT}\.$",
         fr"{LANG} {IT}, earlier {IT}\.$",
+        fr"{LANG} {IT}, early confused with {IT}\.$",
         fr"{LANG} {IT}, from {CAP_WORD}, {QV}$",
         fr"{LANG} {IT}, from {IT}, {GLOSS}\.$",
         fr"{LANG} {IT}, from {LANG} {IT}\.$",
         fr"{LANG} {IT}, from {LANG}$",
+        fr"{LANG} {IT}, in {IT}, {GLOSS}\.$",
         fr"{LANG} {IT}, infl\. by {CAP_WORD}\.$",
+        fr"{LANG} {IT}, infl\. by suffix {IT}\.$",
         fr"{LANG} {IT}, influenced by {IT}\.$",
         fr"{LANG} {IT}, late {GRMS} {IT}\.$",
         fr"{LANG} {IT}, late {IT}\.$",
         fr"{LANG} {IT}, later {IT}\.$",
+        fr"{LANG} {IT}, oblique forms of {IT}\.$",
         fr"{LANG} {IT}, older {IT}\.$",
         fr"{LANG} {IT}, older, {IT}\.$",
+        fr"{LANG} {IT}, or {IT}; {LANG} {IT}\.$",
         fr"{LANG} {IT}, or {IT}\.$",
         fr"{LANG} {IT}, or {LANG} {IT}, {IT}\.$",
+        fr"{LANG} {IT}, or {LANG} {IT}\.$",
         fr"{LANG} {IT}, orig\. 'mated' in chess\.$",
         fr"{LANG} {IT}, pers\. and impers\.$",
         fr"{LANG} {IT}, pp\. {IT}\.$",
@@ -140,8 +218,10 @@ regexes = [
         fr"{LANG} {IT}, reduced under wk\. stress\.$",
         fr"{LANG} {IT}, rel\. to {CAP_WORD}, _{GRM}_{SUP}$",
         fr"{LANG} {IT}, rel\. to {CAP_WORD}, _{GRM}_$",
+        fr"{LANG} {IT}, rel\. to {IT}, {CAP_WORD}\.$",
         fr"{LANG} {IT}, rel\. to {IT}, {GLOSS}\.$",
         fr"{LANG} {IT}, stem of {IT}\.$",
+        fr"{LANG} {IT}, to file; or {LANG} {IT}\.$",
         fr"{LANG} {IT}, with {IT} > {IT}\.$",
         fr"{LANG} {IT}, with {LANG} {IT} > {IT}\.$",
         fr"{LANG} {IT}; _cf\._ next\.$",
@@ -149,28 +229,42 @@ regexes = [
         fr"{LANG} {IT}; _see_ next\.$",
         fr"{LANG} {IT}; _see_ prec\.$",
         fr"{LANG} {IT}; {GRM} {IT}, {IT}\.$",
+        fr"{LANG} {IT}; {GRMS} {IT} \({LANG} {IT}\)\.$",
         fr"{LANG} {IT}; {GRMS} {IT}, {IT}\.$",
         fr"{LANG} {IT}; {GRMS} {IT}\.$",
+        fr"{LANG} {IT}; {IT} {GRMS}; {IT}, {ETC}$",
+        fr"{LANG} {IT}; {IT} \({GRMS}\) \+ {IT}\.$",
         fr"{LANG} {IT}; {IT} = {IT} \(see the rimes\)\.$",
+        fr"{LANG} {IT}; {IT} is freq\. Northern form\.$",
         fr"{LANG} {IT}; {IT}, _{GRM}_$",
         fr"{LANG} {IT}; {IT}, {GRM}$",
         fr"{LANG} {IT}; {IT}, {IT} {GRM}$",
         fr"{LANG} {IT}; {IT}, {IT}\.$",
         fr"{LANG} {IT}; {IT}, pp\.$",
         fr"{LANG} {IT}; {IT}\.$",
+        fr"{LANG} {IT}; {LANG} {IT}, {GLOSS}\.$",
         fr"{LANG} {IT}; {LANG} {IT}, {GRM}$",
+        fr"{LANG} {IT}; {LANG} {IT}, {IT}\.$",
         fr"{LANG} {IT}; {LANG} {IT}\.$",
         fr"{LANG} {IT}; {LANG}, {LANG} {IT}\.$",
         fr"{LANG} {IT}; \? {INFL_BY} {IT}\.$",
+        fr"{LANG} {IT}; \? from {LANG} {IT}, {GLOSS}, _{GRM}_$",
+        fr"{LANG} {IT}; and direct from {LANG} {IT}\.$",
         fr"{LANG} {IT}; but see {NED}$",
         fr"{LANG} {IT}; cf\. {CAP_WORD}, _{GRM}_{SUP}$",
+        fr"{LANG} {IT}; cf\. {IT}, {LANG} {IT}\.$",
+        fr"{LANG} {IT}; cf\. {IT}, and next\.$",
         fr"{LANG} {IT}; cf\. {IT}\.$",
+        fr"{LANG} {IT}; cf\. {LANG} {IT} {GLOSS}\.$",
+        fr"{LANG} {IT}; cf\. {LANG} {IT}, {LANG} {IT}\.$",
         fr"{LANG} {IT}; cf\. {LANG} {IT}\.$",
         fr"{LANG} {IT}; cf\. next\.$",
         fr"{LANG} {IT}; early {LANG} {IT}\.$",
         fr"{LANG} {IT}; obscure\.$",
         fr"{LANG} {IT}; on the vowel _see_ {CAP_WORD}\.$",
+        fr"{LANG} {IT}; orig\. same word as {CAP_WORD}, _{GRM}_$",
         fr"{LANG} {IT}; see {NED}, s\.v\. _{CAP_WORD}_\.$",
+        fr"{LANG} {IT}; see {NED}, s\.v\. {IT}, {GRM}$",
         fr"{LANG} {IT}; see {NED}$",
         fr"{LANG} {IT}; see next\.$",
         fr"{LANG} {IT}; see note\.$",
@@ -184,6 +278,8 @@ regexes = [
         fr"{LANG} \(allit\.\) {IT}, {GLOSS}\.$",
         fr"{LANG} \(from {LANG}\) {IT}\.$",
         fr"{LANG} \(i\) {IT}, \(ii\) {IT}\.$",
+        fr"{LANG} \(once\) {IT}; cf\. {IT}, {GRM}$",
+        fr"{LANG} \(only {LANG}\) {IT}, of unknown origin\.$",
         fr"{LANG} \(rare\) {IT}\.$",
         fr"{LANG} forms point to {LANG} {IT}\.$",
         fr"{LANG} in {IT}, {IT}\.$",
@@ -194,25 +290,35 @@ regexes = [
         fr"\? {LANG} {IT} \(cf\. {IT}\)\.$",
         fr"\? {LANG} {IT}, {GLOSS}; _cf\._ {CAP_WORD}\.$",
         fr"\? {LANG} {IT}, {IT}, {GLOSS}\.$",
+        fr"\? {LANG} {IT}; cf\. {LANG} {IT}\.$",
         fr"\? {LANG} {IT}; see {NED}$",
         fr"\? {LANG} {IT}\.$",
         fr"\? Altered form of {LANG} {IT}\.$",
         fr"\? Cf\. {LANG} {IT}, {GLOSS}\.$",
         fr"\? From next\.$",
         fr"\? From prec\.$",
+        fr"\? Obscure alteration of {LANG} {IT}\.$",
         fr"\? Rel\. to next\.$",
         fr"\? Related to {CAP_WORD}, _{GRM}_{SUP}$",
         fr"\? Related to {CAP_WORD}, _{GRM}_$",
         fr"\? Same as next\.$",
         fr"A Northern form\. ON\. {IT}\.$",
+        fr"A variant, usually Northern, of {CAP_WORD}, {QV}$",
+        fr"As next with subst\. of interchangeable {IT}\.$",
         fr"As next\.$",
+        fr"As prec\.; for older {GRMS} _see_ {CAP_WORD}\.$",
         fr"As prec\.$",
         fr"Back-formation from {CAP_WORD}\.$",
+        fr"Blend of {LANG} {IT}, and {LANG} {IT}\.$",
         fr"Cf\. {LANG} _[^_]+!_$",
         fr"Cf\. {LANG} {IT}, {GLOSS}\.$",
+        fr"Cf\. {LANG} {IT}, {GRM}, {GLOSS}\.$",
         fr"Cf\. {LANG} {IT}, {GRM}$",
         fr"Cf\. {LANG} {IT}, {IT}\.$",
+        fr"Cf\. {LANG} {IT}, {LANG} {IT}, {GLOSS}\.$",
         fr"Cf\. {LANG} {IT}, {LANG} {IT}\.$",  # , vs ;
+        fr"Cf\. {LANG} {IT}, {LANG}, {LANG} {IT}\.$",
+        fr"Cf\. {LANG} {IT}, w\(h\)op, {GLOSS}; echoic\.$",  # @@@
         fr"Cf\. {LANG} {IT}; {LANG} {IT}\.$",  # , vs ;
         fr"Cf\. {LANG} {IT}; \? {LANG} {IT}\.$",
         fr"Cf\. {LANG} {IT}; see {NED}$",
@@ -224,38 +330,50 @@ regexes = [
         fr"Echoic, on model of next\.",
         fr"Echoic; _cf\._ {CAP_WORD}, {CAP_WORD}\.$",
         fr"Echoic; _cf\._ {CAP_WORD}\.$",
+        fr"Echoic; cf\. {LANG} {IT}; {LANG} {IT}, {GRM}$",
         fr"Echoic\.$",
         fr"Extended from {CAP_WORD} with abstract {IT}\.$",
+        fr"Extended from {CAP_WORD}, _conj\._, with {GRM} {IT}\.$",
         fr"Extended from {LANG} {IT}\.$",
         fr"Extended from prec\.$",
         fr"First two words of Latin prayer\.$",
         fr"Formed on {CAP_WORD} _{GRM}_$",  # inconsistenly missing commas
         fr"Formed on {CAP_WORD}, _{GRM}_$",
+        fr"Formed on {LANG} {IT} pp\. of {IT}\.$",
         fr"From _prec\._$",
         fr"From {CAP_WORD}, _{GRM}_; cf\. {LANG} {IT}\.$",
         fr"From {CAP_WORD}, _{GRM}_{SUP}$",
         fr"From {CAP_WORD}, _{GRM}_$",
         fr"From {CAP_WORD}, {CAP_WORD}\.$",
         fr"From {CAP_WORD}, {QV}$",
+        fr"From {CAP_WORD}, to buy\. _See_ {CAP_WORD}, _{GRM}_; {CAP_WORD}\.$",
         fr"From {CAP_WORD}\.$",
+        fr"From {IT}, {GLOSS}; cf\. {LANG} {IT}\.$",
+        fr"From {IT}, old infin\. stem of {CAP_WORD}, _{GRM}_{SUP}$",
         fr"From {IT}\.$",
         fr"From {LANG} {IT} \+ {IT}\.$",
+        fr"From {LANG} {IT}, {ETC}, extended from prec\.$",
         fr"From {LANG} {IT}, {GLOSS}; obscure\.$",
         fr"From {LANG} {IT}, {GLOSS}\.$",  # inconsistent comma?
         fr"From {LANG} {IT}, {GRM}$",
+        fr"From {LANG} {IT}, {IT}, {GRM}; {LANG} {IT}\.$",
         fr"From {LANG} {IT}, {IT}, {GRM}$",
+        fr"From {LANG} {IT}, {IT}, on anal\. of {IT}, {IT}\.$",
         fr"From {LANG} {IT}, {IT}, pp\.$",
         fr"From {LANG} {IT}, {IT}\.$",
         fr"From {LANG} {IT}, {LANG} {IT}, {GLOSS}\.$",
         fr"From {LANG} {IT}, {LANG} {IT}\.$",
+        fr"From {LANG} {IT}; cf\. {LANG} {IT}\.$",
         fr"From {LANG} {IT}\.$",
         fr"From {LANG}, {LANG} {IT}, {GRM}$",
         fr"From {LANG}, {LANG} {IT}\.$",
         fr"From next; cf, {LANG} {IT}\.$",  # @@@
         fr"From next\.$",
         fr"From pp\. of {CAP_WORD}, {QV}$",
+        fr"From prec\. \(cf\. {REF}\); cf\. {LANG} {IT}\.$",
         fr"From prec\. \(i\)\.$",
         fr"From prec\. in {LANG} sense '{GLOSS}'\.$",
+        fr"From prec\. in frequent sense '{GLOSS}'\.$",
         fr"From prec\.; {LANG} {IT}\.$",
         fr"From prec\.; cf\. {LANG} {IT}, {GRM}$",
         fr"From prec\.; cf\. {LANG} {IT}\.$",
@@ -272,6 +390,7 @@ regexes = [
         fr"Northern form of {CAP_WORD}, {QV}$",
         fr"Not known; only allit\.$",
         fr"Not known\.$",
+        fr"Obscure; \? cf\. {CAP_WORD}, and {LANG} {IT}\.$",
         fr"Obscure; \? cf\. {LANG} {IT}, {GLOSS}\.$",
         fr"Obscure; appar\. peculiar to {CAP_WORD}\.$",
         fr"Obscure; cf\. {LANG}, {LANG} {IT}\.$",
@@ -279,6 +398,7 @@ regexes = [
         fr"Obscure; usually Northern\.$",
         fr"Obscure\.$",
         fr"OE\. {IT} \({IT}, but not WS\.\)\.$",
+        fr"OE\. {IT} \(Kt\. {IT}\); {IT}, {IT}\.$",
         fr"OE\. {IT} \(Kt\. {IT}\)\.$",  # Kt inconsistency
         fr"OE\. {IT} \(late WS\. {IT}\)\.$",
         fr"OE\. {IT} \(rare\)\.$",
@@ -290,6 +410,7 @@ regexes = [
         fr"OE\. \(late 11th c\.\) {IT}\.$",
         fr"OE\. \(late\) {IT} from {LANG} {IT}\.$",
         fr"OE\. \(late\) {IT}, {GLOSS}\.$",
+        fr"OE\. \(late\) {IT}, from {LANG} {IT}\.$",
         fr"OE\. \(late\) {IT}\.$",
         fr"OE\. \(Nth\.\) {IT} from {LANG} {IT}\.$",
         fr"OE\. \(Nth\.\) {IT}\.$",
@@ -314,21 +435,26 @@ regexes = [
         fr"Reduced form of {CAP_WORD}, _{GRM}_$",
         fr"Reduced form of {CAP_WORD}, {QV}$",
         fr"Reduction of {CAP_WORD}{SUP}, {QV}$",
+        fr"Rel\. to {CAP_WORD}, _{GRM}_{SUP}; cf\. {LANG}, {LANG} {IT}\.$",
         fr"Related to {CAP_WORD} as prec\.$",
         fr"See {NED} s\.v\. {IT}\.$",
-        fr"See {NED} s\.vv\. _{CAP_WORD}_, _{CAP_WORD}_\.$",
+        fr"See {NED} s\.vv\. {IT}, {IT}\.$",
         fr"See {NED}, s\.v\. {IT} \d+\.$",  # not quite sure what the last part means
+        fr"See {NED}, s\.v\. {IT}, and {IT}\.$",
         fr"See {NED}, s\.v\. {IT}\.$",  # inconsistent comma
         fr"See {NED}$",
         fr"Shortened from {CAP_WORD}, {CAP_WORD}\.$",
         fr"Shortened from {CAP_WORD}, {QV}$",
         fr"Shortened from {CAP_WORD}\.$",
+        fr"Shortened from {IT}, {LANG} {IT}\.$",
         fr"Shortened from {LANG} {IT}\.$",
         fr"Stem of {CAP_WORD} _{GRM}_ \+ {LANG} {IT}\.$",
         fr"Stem of {LANG} {IT} \+ {IT}\.",
+        fr"Stem of {LANG} {IT}, {GRM}, {LANG} {IT}\.$",
         fr"Stem of {LANG} {IT}, {GRM}$",
         fr"Stem of {LANG} {IT}\.$",
         fr"Stem of next\.$",
+        fr"Unaccented form of {LANG} {IT}\. _See_ {CAP_WORD}, {CAP_WORD}\.$",
         fr"Unaccented reduction of {CAP_WORD}\.$",
         fr"Unknown; _cf\._ {LANG} {IT}\.$",
         fr"Unknown\.$",
