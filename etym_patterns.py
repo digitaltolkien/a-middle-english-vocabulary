@@ -41,7 +41,41 @@ IT = r"_[^_]+_"
 IT_END = fr"(_[^_]+!_|{IT}\.)"
 LANG = fr"(({'|'.join(languages)})\.|Latin|Welsh)"
 CAP_WORD = r"[A-ZÞ]([a-zþȝ]|p\(p\))+(\([en]\))?-?"
-GRM = r"(prep|n|v|adj|adv|pl|fem|neut|masc|str|wk|dat|acc|gen|sg|nom|pa|t|3 sg|conj|intr|compar|collect|refl|pret|pres|subj|p)\."
+GRM = (
+    "("
+    + "|".join(
+        [
+            "prep",
+            "n",
+            "v",
+            "adj",
+            "adv",
+            "pl",
+            "fem",
+            "neut",
+            "masc",
+            "str",
+            "wk",
+            "dat",
+            "acc",
+            "gen",
+            "sg",
+            "nom",
+            "pa",
+            "t",
+            "3 sg",
+            "conj",
+            "intr",
+            "compar",
+            "collect",
+            "refl",
+            "pret",
+            "pres",
+            "subj",
+        ]
+    )
+    + ")."
+)
 SUP = r"\^\d+"
 QV = r"_q\.v\._"
 SV = r"s\.v\."
@@ -67,8 +101,12 @@ CAP_WORDS = fr"{CAP_WORD}(, {CAP_WORD})*"
 
 NEXT_PREC = r"(next\.?|prec\.|Next\.?|Prec\.)"
 
-HEADREF = fr"({HEADREF_1}|{HEADREF_2}|{HEADREF_3}|{CAP_WORDS}|{NEXT_PREC}|{CAP_WORD}, {QV})"
-HEADREF_END = fr"({HEADREF_1}|{HEADREF_2}|{HEADREF_3}|{CAP_WORDS}\.|{NEXT_PREC}|{CAP_WORD}, {QV})"
+HEADREF = (
+    fr"({HEADREF_1}|{HEADREF_2}|{HEADREF_3}|{CAP_WORDS}|{NEXT_PREC}|{CAP_WORD}, {QV})"
+)
+HEADREF_END = (
+    fr"({HEADREF_1}|{HEADREF_2}|{HEADREF_3}|{CAP_WORDS}\.|{NEXT_PREC}|{CAP_WORD}, {QV})"
+)
 
 SEE_HEADREF = fr"_see_ {HEADREF}"
 SEE_HEADREF_END = fr"_see_ {HEADREF_END}"
@@ -193,7 +231,7 @@ regexes = [
         fr"{ETYM_02}, from {HEADREF_END}$",
         fr"{ETYM_02}, from {LANG}$",
         fr"{ETYM_02}, infl\. in sense by cognate {ETYM_02_END}$",
-        fr"{ETYM_02}, influ\. in {LANG} by assoc\. with {IT_END}$",  # abbrev inconsistency
+        fr"{ETYM_02}, influ\. in {LANG} by assoc\. with {IT_END}$",  # abbr inconsist.
         fr"{ETYM_02}, influenced by {IT_END}$",
         fr"{ETYM_02}; _see_ {NEXT_PREC}$",
         fr"{ETYM_02}; {CF_HEADREF_END}$",
@@ -593,15 +631,12 @@ regexes = [
         fr"Unaccented reduction of {CAP_WORD}\.$",
         fr"Unknown; {ETYM_000}$",
         fr"Unknown\.$",
-
-
         fr"{ETYM_13}; {Q}with {IT}, {CF} rare {LANG} {IT_END}$",
         fr"{LANG} {IT}, {ETC}; {CF} {LANG} \(from {LANG}\) {IT_END}$",
         fr"{LANG} {IT}, {IT}, {ETC} accented stem of {IT_END}$",
         fr"Orig\. {IT}, {LANG} {IT}, {GRM}, \(as\) companions\.$",
         fr"Originally {IT} {GRM} and {IT} {GRMS}; {CF_HEADREF_END}$",
         fr"{CAP_SEE_HEADREF}; {CF} {LANG} and dial\. {IT}, {GLOSSES_END}$",
-
     ]
 ]
 

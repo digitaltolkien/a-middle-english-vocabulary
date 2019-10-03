@@ -1,5 +1,6 @@
 import re
 
+
 def OR(*lst):
     return "(" + "|".join(lst) + ")"
 
@@ -12,9 +13,29 @@ HEADWORD = fr"#{CAP_WORD}#(, #{CAP_WORD}#)*"
 HEADWORD_REF = fr"({CAP_WORD}(, {CAP_WORD})*|next)"
 
 pos = [
-    "v", "adv", "n", "conj", "pron", "prons", "prep", "adj", "masc", "fem",
-    "pl", "acc", "gen\. sg", "pp", "pron\. pl", "pron. fem", "def\. art",
-    "n\. pl", "pa\. t", "interj", "pa\. t\. sg", "pres\. pl", "adj. superl",
+    r"v",
+    r"adv",
+    r"n",
+    r"conj",
+    r"pron",
+    r"prons",
+    r"prep",
+    r"adj",
+    r"masc",
+    r"fem",
+    r"pl",
+    r"acc",
+    r"gen\. sg",
+    r"pp",
+    r"pron\. pl",
+    r"pron. fem",
+    r"def\. art",
+    r"n\. pl",
+    r"pa\. t",
+    r"interj",
+    r"pa\. t\. sg",
+    r"pres\. pl",
+    r"adj\. superl",
 ]
 POS = fr"_({'|'.join(pos)})\._(\^\d)?"
 
@@ -24,7 +45,7 @@ GLOSS = fr"([a-z\- ]+|{PROPER_NAMES}|{OTHER_GLOSSES})( \([a-z\- ]+\))?"
 GLOSSES = fr"(\? )?{GLOSS}([,;] {GLOSS})*"
 
 TEXT_REF = fr"[IVX]+( _[a-z]_)? \d+(, \d+)*( \(note\)| \(_see_ note\)| \(MS\.\))?"
-TEXT_REF_DOT = "X _introd\._"
+TEXT_REF_DOT = r"X _introd\._"
 TEXT_REFS_DOT = fr"({TEXT_REF_DOT}|{TEXT_REF}(, {TEXT_REF})*(\.|, {ETC}))"
 
 ETYM = r"\[[^\]]+\]"
@@ -72,12 +93,13 @@ HEADWORD_REF_POS = fr"{HEADWORD_REF}(, {POS})?"
 HEADWORD_REF_POS_DOT = fr"{HEADWORD_REF}(\.|, {POS})"
 
 LITTLE_SEE = fr"_see_ {HEADWORD_REF_POS}"
-LITTLE_SEE_DOT = fr"_see_ ({HEADWORD_REF_POS_DOT}|{HEADWORD_REF_POS}, and note\.|note\.)"
+LITTLE_SEE_DOT = (
+    fr"_see_ ({HEADWORD_REF_POS_DOT}|{HEADWORD_REF_POS}, and note\.|note\.)"
+)
 
 regexes = [
     re.compile(r)
     for r in [
-
         fr"{HEADWORD_DOT} {BIG_SEE}$",
         fr"{HEADWORD_POS} {GLOSSES} {TEXT_REFS_DOT} {ETYM}$",  # missing comma?
         fr"{HEADWORD_POS} {GLOSSES}, {TEXT_REF} \({LITTLE_SEE}\)\. {ETYM}$",
@@ -96,11 +118,8 @@ regexes = [
         fr"{HEADWORD}, {TEXT_REF}; {LITTLE_SEE_DOT}$",
         fr"{HEADWORD}\. _See also_ {HEADWORD_REF_POS_DOT}$",
         fr"{HEADWORD}\. _See_ also {HEADWORD_REF_POS_DOT}$",
-
         fr"{HEADWORD}, {TEXT_REF}: \? read _[^_]+_, {GLOSSES}; {LITTLE_SEE_DOT}$",
-
         fr"{HEADWORD} \(_intill_\), {POS} {GLOSSES}, {TEXT_REFS_DOT}$",
-
         fr"#U-#, #V-#; for init\. _u_, _v_ \(in III\) see also F\.$",
     ]
 ]

@@ -27,9 +27,10 @@ but also, the following errors in printed version:
 * **Danes** has `Med. L.` for `Med.L.` in etymology
 
 
-## Code for Etymology Patterns
+## Code for Patterns
 
-Currently running `./check_etymologies.py` and building regular expressions in `etym_patterns.py`.
+
+Currently running `./check_etymologies.py` and building regular expressions in `etym_patterns.py` for etymological information; and running `./check_entries.py` and building regular expressions in `entry_patterns.py` for overall pattern structure.
 
 There are currently no dependencies for running the script above.
 
