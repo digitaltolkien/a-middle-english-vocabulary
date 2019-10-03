@@ -40,11 +40,12 @@ languages = [  # without final period
 IT = r"_[^_]+_"
 IT_END = fr"(_[^_]+!_|{IT}\.)"
 LANG = fr"(({'|'.join(languages)})\.|Latin|Welsh)"
-CAP_WORD = r"[A-ZÞ]([a-zþȝ]|p\(p\))+(\([en]\))?"
+CAP_WORD = r"[A-ZÞ]([a-zþȝ]|p\(p\))+(\([en]\))?-?"
 GRM = r"(prep|n|v|adj|adv|pl|fem|neut|masc|str|wk|dat|acc|gen|sg|nom|pa|t|3 sg|conj|intr|compar|collect|refl|pret|pres|subj|p)\."
 SUP = r"\^\d+"
 QV = r"_q\.v\._"
 SV = r"s\.v\."
+SVV = r"s\.vv\."
 CF = r"(cf\.|_cf\._|Cf\.|_Cf\._)"  # italics inconsistency?
 NED = r"_N\.E\.D\._"  # The Oxford (New) English Dictionary
 EDD = r"_E\.D\.D\._"
@@ -53,6 +54,9 @@ ETC = r"&c\."
 INFL_BY = r"infl\. by"
 REF = "VII 167"
 SEE_APP = r"_see_ (App\.,|Appendix,|Appendix) p\. \d+\."  # inconsistency
+
+ECHOIC = r"[Ee]choic"
+ECHOIC_END = r"[Ee]choic\."
 
 GRMS = fr"{GRM}( {GRM})*"
 
@@ -63,12 +67,13 @@ CAP_WORDS = fr"{CAP_WORD}(, {CAP_WORD})*"
 
 NEXT_PREC = r"(next\.?|prec\.|Next\.?|Prec\.)"
 
-HEADREF = fr"({HEADREF_1}|{HEADREF_2}|{HEADREF_3}|{CAP_WORDS}|{NEXT_PREC})"
-HEADREF_END = fr"({HEADREF_1}|{HEADREF_2}|{HEADREF_3}|{CAP_WORDS}\.|{NEXT_PREC})"
+HEADREF = fr"({HEADREF_1}|{HEADREF_2}|{HEADREF_3}|{CAP_WORDS}|{NEXT_PREC}|{CAP_WORD}, {QV})"
+HEADREF_END = fr"({HEADREF_1}|{HEADREF_2}|{HEADREF_3}|{CAP_WORDS}\.|{NEXT_PREC}|{CAP_WORD}, {QV})"
 
 SEE_HEADREF = fr"_see_ {HEADREF}"
 SEE_HEADREF_END = fr"_see_ {HEADREF_END}"
 CAP_SEE_HEADREF = fr"_See_ {HEADREF}"
+CAP_SEE_HEADREF_END = fr"_See_ {HEADREF_END}"
 
 CF_HEADREF = fr"{CF} {HEADREF}"
 CF_HEADREF_END = fr"{CF} {HEADREF_END}"
@@ -76,21 +81,37 @@ CF_HEADREF_END = fr"{CF} {HEADREF_END}"
 GLOSSES = fr"{GLOSS}(, {GLOSS})*(, {ETC})?"
 GLOSSES_END = fr"{GLOSS}(, {GLOSS})*(, {ETC}|\.)"
 
+Q = r"(\? )?"
+
 ETYM_01 = fr"{LANG} {IT}, {GRM}"
+ETYM_01_END = fr"{LANG} {IT}, {GRM}"
 ETYM_02 = fr"{LANG} {IT}"
-ETYM_02_END = fr"{LANG} {IT_END}"
+ETYM_02_END = fr"{Q}{LANG} {IT_END}"
 ETYM_03_END = fr"{LANG} {IT}, {IT_END}"
 ETYM_04_END = fr"{LANG} {IT}, {LANG} {IT_END}"
 ETYM_05_END = fr"{LANG} {IT}, {GLOSSES_END}"
 ETYM_06_END = fr"{LANG}, {LANG} {IT_END}"
 ETYM_07 = fr"{LANG} {IT}, {GLOSSES}"
-ETYM_08 = fr"{LANG} {IT}, {GLOSS}"
-ETYM_09 = fr"{LANG} {IT}, {GRM}, {GLOSS}"
+ETYM_07_END = fr"{LANG} {IT}, {GLOSSES_END}"
+ETYM_08 = fr"{LANG} {IT}, {GLOSSES}"
+ETYM_08_END = fr"{LANG} {IT}, {GLOSSES_END}"
+ETYM_09 = fr"{LANG} {IT}, {GRM}, {GLOSSES}"
+ETYM_09_END = fr"{LANG} {IT}, {GRM}, {GLOSSES_END}"
 ETYM_10_END = fr"{LANG} {IT}, {LANG} {IT}, {GLOSSES_END}"
 ETYM_11 = fr"{LANG}, {LANG} {IT}, {GRM}"
 ETYM_12_END = fr"{LANG} {IT} {GLOSSES_END}"
 ETYM_13 = fr"{LANG} {IT}, {IT}"
 ETYM_14_END = fr"{LANG} {IT}, {IT}, {GLOSSES_END}"
+ETYM_15 = fr"{CF} {LANG} gloss {IT}, {GLOSS}"
+ETYM_16 = fr"see {NED}"
+ETYM_17_END = fr"{IT} \({GRMS} {IT}\), {GRM}"
+ETYM_18 = fr"{IT}, {GRM}"
+ETYM_19_END = fr"{IT}, {GLOSSES_END}"
+ETYM_20_END = fr"{IT}, {LANG} {IT_END}"
+ETYM_21_END = fr"{IT}, {IT_END}"
+ETYM_22 = fr"{IT}, {GLOSS}"
+ETYM_22_END = fr"{IT}, {GLOSSES_END}"
+ETYM_23_END = fr"see {NED}, {SV} _{CAP_WORD}_\."
 
 ETYM_000 = fr"{CF} {ETYM_02_END}"
 ETYM_001 = fr"{CF} {ETYM_06_END}"
@@ -98,25 +119,24 @@ ETYM_005 = fr"{CF} {ETYM_02}"
 ETYM_002 = fr"{CF} {ETYM_01}"
 ETYM_003 = fr"{CF} {ETYM_03_END}"
 ETYM_004 = fr"{CF} {ETYM_04_END}"
-ETYM_006 = fr"{CF} {ETYM_05_END}"
+ETYM_006 = fr"{Q}{CF} {ETYM_05_END}"
+ETYM_007 = fr"{CF} {ETYM_07}"
+ETYM_008 = fr"{CF} {IT_END}"
+ETYM_009 = fr"{CF} {IT}, {ETC}"
+ETYM_010 = fr"{CF} {ETYM_19_END}"
+ETYM_011 = fr"{CF} {ETYM_20_END}"
 
 regexes = [
     re.compile(r)
     for r in [
-        fr"{CAP_SEE_HEADREF}\.$",
-        fr"{CAP_WORD} \+ {CAP_WORD}, {QV}$",
-        fr"{CAP_WORD} \+ {HEADREF}$",
-        fr"{CAP_WORD}- \+ {CAP_WORD}, {QV}$",
-        fr"{CAP_WORD}- \+ {HEADREF}$",
+        fr"{CAP_SEE_HEADREF_END}$",
         fr"{CAP_WORDS} {INFL_BY} {CAP_WORD}\.$",
-        fr"{CAP_WORDS} \+ {CAP_WORD}, {QV}$",
-        fr"{CF} {ETYM_07}; echoic\.$",  # @@@
+        fr"{CAP_WORDS} \+ {HEADREF_END}$",
         fr"{CF} {ETYM_08}, and _{CAP_WORD}_{SUP} in {EDD}$",
-        fr"{CF} {ETYM_09}\.$",
+        fr"{CF} {ETYM_09_END}$",
         fr"{CF} {ETYM_10_END}$",
         fr"{CF} {ETYM_11}$",
         fr"{CF} {LANG} {IT}, {LANG}, {LANG} {IT_END}$",
-        fr"{CF} {LANG} gloss {IT}, scopulus; {ETYM_02_END}$",
         fr"{CF} {LANG}, {LANG}, {IT_END}$",
         fr"{ETYM_000}$",
         fr"{ETYM_001}$",
@@ -124,39 +144,38 @@ regexes = [
         fr"{ETYM_003}$",
         fr"{ETYM_004}$",
         fr"{ETYM_005}; {ETYM_02_END}$",
-        fr"{ETYM_005}; \? {ETYM_02_END}$",
-        fr"{ETYM_005}; see {NED}$",
+        fr"{ETYM_005}; {ETYM_16}$",
         fr"{ETYM_006}$",
-        fr"{ETYM_01}; {CF} {IT_END}$",
+        fr"{ETYM_007}; {ECHOIC_END}$",  # @@@
         fr"{ETYM_01}; {ETYM_000}$",
+        fr"{ETYM_01}; {ETYM_008}$",
+        fr"{ETYM_01}; {ETYM_17_END}$",
+        fr"{ETYM_01}; {ETYM_18}; {ETYM_18}$",
         fr"{ETYM_01}; {IT_END}$",
-        fr"{ETYM_01}; {IT} \({GRMS} {IT}\), {GRM}$",
-        fr"{ETYM_01}; {IT}, {GRM}; {IT}, {GRM}$",
-        fr"{ETYM_01}$",
+        fr"{ETYM_01_END}$",
         fr"{ETYM_02_END}$",
         fr"{ETYM_02} \({CF} {LANG} {IT}, {LANG} {IT}\)\.$",
-        fr"{ETYM_02} \+ {CAP_WORD}, {QV}$",
-        fr"{ETYM_02} \+ {CAP_WORD}\.$",
         fr"{ETYM_02} \+ {ETYM_02_END}$",
         fr"{ETYM_02} \+ {ETYM_02} \({CF} {LANG}, {LANG} {IT}\).$",
         fr"{ETYM_02} \+ {ETYM_02}; {ETYM_000}$",
         fr"{ETYM_02} \+ {ETYM_04_END}$",
+        fr"{ETYM_02} \+ {ETYM_22} \({SEE_HEADREF}\)\.",
         fr"{ETYM_02} \+ {GRM} {IT_END}$",
+        fr"{ETYM_02} \+ {HEADREF_END}$",
         fr"{ETYM_02} \+ {IT_END}$",
         fr"{ETYM_02} \+ {IT} \({SEE_HEADREF}\)\.$",
         fr"{ETYM_02} \+ {IT} \(intensive\)\.$",
         fr"{ETYM_02} \+ {IT} \(properly {GRM} with {NEXT_PREC} noun\).$",
         fr"{ETYM_02} \+ {IT} indef\.$",
-        fr"{ETYM_02} \+ {IT}, {GLOSS} \({SEE_HEADREF}\)\.",
         fr"{ETYM_02} \+ {IT}, {GRMS}$",
         fr"{ETYM_02} \+ {IT}, pp\. of {IT_END}$",
         fr"{ETYM_02} \+ {IT}, pp\.$",
-        fr"{ETYM_02} \+ {IT}; {CF} {IT_END}$",
-        fr"{ETYM_02} \+ {IT}; {CF} {IT}, {ETC}$",
-        fr"{ETYM_02} \+ {IT}; {CF} {IT}, {GLOSS}\.$",
         fr"{ETYM_02} \+ {IT}; {CF} {LANG} \(late\) {IT_END}$",
         fr"{ETYM_02} \+ {IT}; {CF} {NEXT_PREC}$",
         fr"{ETYM_02} \+ {IT}; {ETYM_000}$",
+        fr"{ETYM_02} \+ {IT}; {ETYM_008}$",
+        fr"{ETYM_02} \+ {IT}; {ETYM_009}$",
+        fr"{ETYM_02} \+ {IT}; {ETYM_010}$",
         fr"{ETYM_02} \+ \? {IT} \? {IT_END}$",
         fr"{ETYM_02} blended with {IT} \({IT}\)\.$",
         fr"{ETYM_02} from {ETYM_02_END}$",
@@ -169,29 +188,32 @@ regexes = [
         fr"{ETYM_02}, \? {INFL_BY} {IT}, {ETC}",
         fr"{ETYM_02}, corruptly from {ETYM_02_END}$",
         fr"{ETYM_02}, formed on {ETYM_02}, pp\.$",
-        fr"{ETYM_02}, from {CAP_WORD}, {QV}$",
         fr"{ETYM_02}, from {ETYM_02_END}$",
-        fr"{ETYM_02}, from {IT}, {GLOSS}\.$",
+        fr"{ETYM_02}, from {ETYM_22_END}$",
+        fr"{ETYM_02}, from {HEADREF_END}$",
         fr"{ETYM_02}, from {LANG}$",
         fr"{ETYM_02}, infl\. in sense by cognate {ETYM_02_END}$",
         fr"{ETYM_02}, influ\. in {LANG} by assoc\. with {IT_END}$",  # abbrev inconsistency
         fr"{ETYM_02}, influenced by {IT_END}$",
         fr"{ETYM_02}; _see_ {NEXT_PREC}$",
         fr"{ETYM_02}; {CF_HEADREF_END}$",
-        fr"{ETYM_02}; {CF} {IT_END}$",
-        fr"{ETYM_02}; {CF} {IT}, {LANG} {IT_END}$",
-        fr"{ETYM_02}; {CF} {IT}, and {LANG} {IT_END}$",
-        fr"{ETYM_02}; {CF} {IT}, and {NEXT_PREC}\.$",
         fr"{ETYM_02}; {CF} {ETYM_12_END}$",
         fr"{ETYM_02}; {CF} {ETYM_13}, in this sense\.$",
+        fr"{ETYM_02}; {CF} {IT}, and {LANG} {IT_END}$",
+        fr"{ETYM_02}; {CF} {IT}, and {NEXT_PREC}\.$",
         fr"{ETYM_02}; {ETYM_000}$",
         fr"{ETYM_02}; {ETYM_004}$",
-        fr"{ETYM_02}; {ETYM_01}$",
+        fr"{ETYM_02}; {ETYM_008}$",
+        fr"{ETYM_02}; {ETYM_01_END}$",
+        fr"{ETYM_02}; {ETYM_011}$",
         fr"{ETYM_02}; {ETYM_02_END}$",
         fr"{ETYM_02}; {ETYM_03_END}$",
         fr"{ETYM_02}; {ETYM_06_END}$",
+        fr"{ETYM_02}; {ETYM_08_END}$",
         fr"{ETYM_02}; {ETYM_08}\. {CF_HEADREF}$",
-        fr"{ETYM_02}; {ETYM_08}\.$",
+        fr"{ETYM_02}; {ETYM_18}$",
+        fr"{ETYM_02}; {ETYM_21_END}$",
+        fr"{ETYM_02}; {ETYM_23_END}$",
         fr"{ETYM_02}; {GRM} {IT}, {IT_END}$",
         fr"{ETYM_02}; {GRMS} {IT_END}$",
         fr"{ETYM_02}; {GRMS} {IT} \({ETYM_02}\)\.$",
@@ -202,8 +224,6 @@ regexes = [
         fr"{ETYM_02}; {IT} = {IT} \(see the rimes\)\.$",
         fr"{ETYM_02}; {IT} is freq\. Northern form\.$",
         fr"{ETYM_02}; {IT}, _{GRM}_$",
-        fr"{ETYM_02}; {IT}, {GRM}$",
-        fr"{ETYM_02}; {IT}, {IT_END}$",
         fr"{ETYM_02}; {IT}, {IT} {GRM}$",
         fr"{ETYM_02}; {IT}, {IT}; {IT}, {ETC}$",
         fr"{ETYM_02}; {IT}, pp\.$",
@@ -221,15 +241,14 @@ regexes = [
         fr"{ETYM_02}; on stem-vowel see {NED} {SV} _{CAP_WORD}_\.$",
         fr"{ETYM_02}; on the vowel {SEE_HEADREF}\.$",
         fr"{ETYM_02}; orig\. same word as {HEADREF}$",
-        fr"{ETYM_02}; see {NED}, {SV} _{CAP_WORD}_\.$",
-        fr"{ETYM_02}; see {NED}, {SV} {IT}, {GRM}$",
+        fr"{ETYM_02}; see {NED}, {SV} {ETYM_18}$",
         fr"{ETYM_02}; see {NED}$",
         fr"{ETYM_02}; see {NEXT_PREC}$",
         fr"{ETYM_02}; see note\.$",
         fr"{ETYM_02}; the {IT} forms are difficult to explain.$",
         fr"{ETYM_02}; the confusion with {IT} began in {LANG}$",
         fr"{ETYM_02}; with {IT} {CF} {CAP_WORDS}\.$",
-        fr"{ETYM_02}; with the reduced forms {CF} {CAP_WORD}\.$",
+        fr"{ETYM_02}; with the reduced forms {CF_HEADREF_END}$",
         fr"{ETYM_02}\. \({ETYM_005}\)\.$",
         fr"{ETYM_02}\. On {IT} for {IT}, {SEE_APP}$",
         fr"{ETYM_03_END}$",
@@ -240,49 +259,60 @@ regexes = [
         fr"{ETYM_08} \(or stem of {NEXT_PREC}\) \+ {IT_END}$",
         fr"{ETYM_08} \+ {ETYM_02_END}$",
         fr"{ETYM_08}, from {ETYM_02_END}$",
-        fr"{ETYM_08}; {CF_HEADREF}\.$",
+        fr"{ETYM_08}; {CF_HEADREF_END}$",
         fr"{ETYM_08}; {ETYM_000}$",
-        fr"{ETYM_08}; {ETYM_07}\.$",
+        fr"{ETYM_08}; {ETYM_07_END}$",
+        fr"{ETYM_08}; {ETYM_19_END}$",
         fr"{ETYM_08}; {GRMS} {IT_END}$",
-        fr"{ETYM_08}; {IT}, {GLOSS}\.$",
         fr"{ETYM_08}; see {NED}$",
-        fr"{ETYM_09}; {ETYM_08}\.$",
+        fr"{ETYM_09}; {ETYM_08_END}$",
         fr"{ETYM_10_END}$",
+        fr"{ETYM_12_END}$",
+        fr"{ETYM_13}; {ETYM_000}$",
+        fr"{ETYM_13}; {ETYM_02_END}$",
+        fr"{ETYM_13}; {ETYM_21_END}$",
+        fr"{ETYM_13}; {GRM} {IT}; {LANG} {GRM} {IT_END}$",
+        fr"{ETYM_13}; {GRMS} {IT}, {IT_END}$",
+        fr"{ETYM_13}; {IT_END}$",
+        fr"{ETYM_13}; {IT}, {IT}, {GRM}$",
+        fr"{ETYM_13}; {IT}; {IT_END}$",
+        fr"{ETYM_13}; later {IT_END}$",
+        fr"{ETYM_13}; pp\. {IT_END}$",
+        fr"{ETYM_14_END}$",
+        fr"{ETYM_15}; {ETYM_02_END}$",
         fr"{HEADREF} \+ _pp\._ of {CAP_WORD}\.$",
-        fr"{HEADREF} \+ {CAP_WORD}, {QV}$",
-        fr"{HEADREF} \+ {CAP_WORD}\.$",
         fr"{HEADREF} \+ {ETYM_02_END}$",
         fr"{HEADREF} \+ {ETYM_02} from {CAP_WORD}\.$",
         fr"{HEADREF} \+ {ETYM_02}; {ETYM_02_END}$",
         fr"{HEADREF} \+ {ETYM_03_END}$",
         fr"{HEADREF} \+ {GRM} {IT_END}$",
+        fr"{HEADREF} \+ {HEADREF_END}$",
         fr"{HEADREF} \+ {IT_END}$",
         fr"{HEADREF} and {ETYM_08}\.$",
         fr"{IT} \+ {CAP_WORD}; {CF} {IT}, {SV} {HEADREF}$",
         fr"{IT} \+ {ETYM_02_END}$",
-        fr"{IT} \+ {ETYM_02}; {CF} {IT}, {GLOSS}\.$",
+        fr"{IT} \+ {ETYM_02}; {CF} {ETYM_22_END}$",
         fr"{IT} \+ {ETYM_03_END}$",
         fr"{IT} \+ {ETYM_08}\.$",
-        fr"{ETYM_12_END}$",
         fr"{LANG} {IT} {GRM}, {GLOSSES_END}$",
         fr"{LANG} {IT} {GRMS}$",
-        fr"{LANG} {IT} {INFL_BY} {IT}, {GRM}$",
+        fr"{LANG} {IT} {INFL_BY} {ETYM_18}$",
         fr"{LANG} {IT} {INFL_BY} senses of related {ETYM_02_END}$",
         fr"{LANG} {IT} \({ETYM_02}\) {INFL_BY} {IT_END}$",
         fr"{LANG} {IT} \({ETYM_02}\), or {ETYM_02_END}$",
         fr"{LANG} {IT} \({ETYM_02}\); {SEE_APP}$",
+        fr"{LANG} {IT} \({ETYM_18}\); {IT_END}$",
         fr"{LANG} {IT} \({GLOSS}\) {IT} \({IT}\)\.$",
         fr"{LANG} {IT} \({GRM} {IT}, {IT}\); {ETYM_02_END}$",
         fr"{LANG} {IT} \({GRM}\), {GLOSSES}; {CF_HEADREF}$",
         fr"{LANG} {IT} \({GRM}\); {SEE_APP}$",
-        fr"{LANG} {IT} \({IT}, {GRM}\); {IT_END}$",
         fr"{LANG} {IT} \({IT}, {GRMS}\); {CF_HEADREF}\.$",
         fr"{LANG} {IT} \({IT}\) \+ {ETYM_02_END}$",
         fr"{LANG} {IT} \({IT}\) \+ {IT} \({ETYM_02}\)\.$",
         fr"{LANG} {IT} \({IT}\), {IT}, {ETC}; {LANG} {GRM} {IT}, {ETC}$",
         fr"{LANG} {IT} \({IT}\), {IT}, {IT}.",
         fr"{LANG} {IT} \({IT}\), or {IT_END}$",
-        fr"{LANG} {IT} \({IT}\); {IT}, {IT_END}$",
+        fr"{LANG} {IT} \({IT}\); {ETYM_21_END}$",
         fr"{LANG} {IT} \({IT}\)\.$",
         fr"{LANG} {IT} \({LANG} {IT}, {LANG} {IT}\)\.$",
         fr"{LANG} {IT} \(\? late {ETYM_02}\); but see {HEADREF}$",
@@ -306,10 +336,10 @@ regexes = [
         fr"{LANG} {IT}, {GLOSSES} \(of arrow, spear, {ETC}\)\.$",
         fr"{LANG} {IT}, {GRM} {IT}, {IT_END}$",
         fr"{LANG} {IT}, {GRM} \+ {IT_END}$",
-        fr"{LANG} {IT}, {GRM} and {GRM}; {IT}, {GRM}$",
+        fr"{LANG} {IT}, {GRM} and {GRM}; {ETYM_18}$",
         fr"{LANG} {IT}, {GRM} and {GRM}$",
         fr"{LANG} {IT}, {GRM} of {IT_END}$",
-        fr"{LANG} {IT}, {GRM}, {GRM}; {IT}, {GRM}$",
+        fr"{LANG} {IT}, {GRM}, {GRM}; {ETYM_18}$",
         fr"{LANG} {IT}, {GRM}, {IT}, {GRM}$",
         fr"{LANG} {IT}, {GRM}, and {IT}, {GRM}$",
         fr"{LANG} {IT}, {GRMS} {IT_END}$",
@@ -328,7 +358,6 @@ regexes = [
         fr"{LANG} {IT}, {IT} \+ {IT_END}$",
         fr"{LANG} {IT}, {IT}, {ETC}, {GRM}$",
         fr"{LANG} {IT}, {IT}, {ETC}$",
-        fr"{ETYM_14_END}$",
         fr"{LANG} {IT}, {IT}, {GRM}{SUP}$",
         fr"{LANG} {IT}, {IT}, {IT_END}$",
         fr"{LANG} {IT}, {IT}, {IT}, {ETC}$",
@@ -341,16 +370,6 @@ regexes = [
         fr"{LANG} {IT}, {IT}, occas\. {IT_END}$",
         fr"{LANG} {IT}, {IT}, str\. and wk\.$",
         fr"{LANG} {IT}, {IT}, str\., later wk\.$",
-        fr"{ETYM_13}; {ETYM_000}$",
-        fr"{ETYM_13}; {ETYM_02_END}$",
-        fr"{ETYM_13}; {GRM} {IT}; {LANG} {GRM} {IT_END}$",
-        fr"{ETYM_13}; {GRMS} {IT}, {IT_END}$",
-        fr"{ETYM_13}; {IT_END}$",
-        fr"{ETYM_13}; {IT}, {IT_END}$",
-        fr"{ETYM_13}; {IT}, {IT}, {GRM}$",
-        fr"{ETYM_13}; {IT}; {IT_END}$",
-        fr"{ETYM_13}; later {IT_END}$",
-        fr"{ETYM_13}; pp\. {IT_END}$",
         fr"{LANG} {IT}, {LANG} {IT}, {GRM}$",
         fr"{LANG} {IT}, {LANG} {IT}; see {NED}$",
         fr"{LANG} {IT}, \? {IT_END}$",
@@ -364,7 +383,7 @@ regexes = [
         fr"{LANG} {IT}, and with weak stress {IT}\(\?\)\.$",
         fr"{LANG} {IT}, earlier {IT_END}$",
         fr"{LANG} {IT}, early confused with {IT_END}$",
-        fr"{LANG} {IT}, in {IT}, {GLOSS}\.$",
+        fr"{LANG} {IT}, in {ETYM_22_END}$",
         fr"{LANG} {IT}, in {IT}; see {NED}, s.v. _{CAP_WORD}_\.$",
         fr"{LANG} {IT}, late {GRMS} {IT_END}$",
         fr"{LANG} {IT}, late {IT_END}$",
@@ -384,9 +403,9 @@ regexes = [
         fr"{LANG} {IT}, pp\., {GLOSS}\.$",
         fr"{LANG} {IT}, prob\. {INFL_BY} senses of {ETYM_02_END}$",
         fr"{LANG} {IT}, reduced under wk\. stress\.$",
+        fr"{LANG} {IT}, rel\. to {ETYM_22_END}$",
         fr"{LANG} {IT}, rel\. to {HEADREF}$",
         fr"{LANG} {IT}, rel\. to {IT}, {CAP_WORD}\.$",
-        fr"{LANG} {IT}, rel\. to {IT}, {GLOSS}\.$",
         fr"{LANG} {IT}, stem of {IT_END}$",
         fr"{LANG} {IT}, str\.; {IT}, wk\.; both intr\.$",
         fr"{LANG} {IT}, to file; or {ETYM_02_END}$",
@@ -396,24 +415,22 @@ regexes = [
         fr"{LANG} {IT}\.{SUP}$",
         fr"{LANG} \? {IT}, rel\. to {IT_END}$",
         fr"{LANG} \? {IT}; {ETYM_02_END}$",
-        fr"{LANG} \(allit\.\) {IT}, {GLOSS}\.$",
+        fr"{LANG} \(allit\.\) {ETYM_22_END}$",
         fr"{LANG} \(from {LANG}\) {IT_END}$",
         fr"{LANG} \(i\) {IT}, \(ii\) {IT_END}$",
         fr"{LANG} \(late\) {IT}, prob\. modelled on {ETYM_02_END}$",
-        fr"{LANG} \(once\) {IT}; {CF} {IT}, {GRM}$",
+        fr"{LANG} \(once\) {IT}; {CF} {ETYM_18}$",
         fr"{LANG} \(only {LANG}\) {IT}, of unknown origin\.$",
         fr"{LANG} \(rare\) {IT_END}$",
-        fr"{LANG} also {IT}; \? obscurely rel\. to {CAP_WORD}, {QV}$",
+        fr"{LANG} also {IT}; \? obscurely rel\. to {HEADREF_END}$",
         fr"{LANG} forms point to {ETYM_02_END}$",
+        fr"{LANG} in {ETYM_21_END}$",
         fr"{LANG} in {IT_END}$",
-        fr"{LANG} in {IT}, {IT_END}$",
         fr"{LANG} in {IT}; see {NED} {SV} {IT_END}$",
         fr"{LANG} unacc\. form {IT}, or {ETYM_02}; {SEE_HEADREF}\.$",
         fr"{LANG}, {LANG} {IT}, {LANG} {IT_END}$",
         fr"{LANG}; also appears in {LANG} in {LANG} form {IT_END}$",
         fr"{LANG}$",
-        fr"\? {ETYM_006}$",
-        fr"\? {ETYM_02_END}$",
         fr"\? {ETYM_02} \({CF} {IT}\)\.$",
         fr"\? {ETYM_02} \+ {IT}; {CF} {IT}, Layamon 969\.$",
         fr"\? {ETYM_02}; {ETYM_000}$",
@@ -421,10 +438,10 @@ regexes = [
         fr"\? {ETYM_02}; see {NED}$",
         fr"\? {ETYM_08}; {CF_HEADREF}\.$",
         fr"\? {ETYM_08}; {CF} senses of {IT}.$",
+        fr"\? {ETYM_14_END}$",
         fr"\? {LANG} {IT} < {IT} \({ETYM_005}\)\.$",
         fr"\? {LANG} {IT}, {GRMS}, or {GRM}, of {IT_END}$",
-        fr"\? {ETYM_14_END}$",
-        fr"\? {LANG} {IT}, {IT}, {GLOSSES}; {CF} {CAP_WORD}\.$",
+        fr"\? {LANG} {IT}, {IT}, {GLOSSES}; {CF_HEADREF_END}$",
         fr"\? Altered form of {ETYM_02_END}$",
         fr"\? From {NEXT_PREC}$",
         fr"\? Obscure alteration of {ETYM_02_END}$",
@@ -433,7 +450,7 @@ regexes = [
         fr"\? Related to {HEADREF}$",
         fr"\? Same as {NEXT_PREC}$",
         fr"A Northern form\. ON\. {IT_END}$",
-        fr"A variant, usually Northern, of {CAP_WORD}, {QV}$",
+        fr"A variant, usually Northern, of {HEADREF_END}$",
         fr"Altered by assoc\. with {NEXT_PREC} from {ETYM_02_END}$",
         fr"As {CAP_WORD}, with alteration of final spirant; {CF_HEADREF}\.$",
         fr"As {NEXT_PREC} with subst\. of interchangeable {IT_END}$",
@@ -443,10 +460,10 @@ regexes = [
         fr"Blend of {ETYM_02}, and {ETYM_02_END}$",
         fr"Blend of {ETYM_08}, and {ETYM_08}\.$",
         fr"Children's language\.$",
-        fr"Echoic, on model of {NEXT_PREC}\.",
-        fr"Echoic; {CF_HEADREF}\.$",
-        fr"Echoic; {ETYM_005}; {ETYM_01}$",
-        fr"Echoic\.$",
+        fr"{ECHOIC}, on model of {HEADREF_END}$",
+        fr"{ECHOIC}; {CF_HEADREF_END}$",
+        fr"{ECHOIC}; {ETYM_005}; {ETYM_01_END}$",
+        fr"{ECHOIC_END}$",
         fr"Extended from {CAP_WORD} with abstract {IT_END}$",
         fr"Extended from {CAP_WORD}, _conj\._, with {GRM} {IT_END}$",
         fr"Extended from {ETYM_02_END}$",
@@ -456,26 +473,25 @@ regexes = [
         fr"Formed on {HEADREF_END}$",
         fr"Formed on {LANG} {IT} pp\. of {IT_END}$",
         fr"From _{NEXT_PREC}_$",  # @@@ why italic?
-        fr"From {CAP_WORD}, {GLOSS}\. {CAP_SEE_HEADREF}; {CAP_WORD}\.$",
-        fr"From {CAP_WORD}, {QV}$",
-        fr"From {CAP_WORDS}\.$",
-        fr"From {ETYM_01}$",
+        fr"From {CAP_WORD}, {GLOSS}\. {CAP_SEE_HEADREF}; {HEADREF_END}$",
+        fr"From {ETYM_01_END}$",
         fr"From {ETYM_02_END}$",
         fr"From {ETYM_02} \+ {IT_END}$",
         fr"From {ETYM_02}, extended from {HEADREF}$",
-        fr"From {ETYM_02}, formed on {CAP_WORD}, {QV}$",
+        fr"From {ETYM_02}, formed on {HEADREF_END}$",
         fr"From {ETYM_02}; {ETYM_000}$",
         fr"From {ETYM_03_END}$",
         fr"From {ETYM_06_END}$",
+        fr"From {ETYM_08_END}$",
         fr"From {ETYM_08}; _see_ Piers Pl\. C X 215\.$",
         fr"From {ETYM_08}; obscure\.$",
-        fr"From {ETYM_08}\.$",  # inconsistent comma?
         fr"From {ETYM_10_END}$",
         fr"From {ETYM_11}$",
+        fr"From {ETYM_22}; {ETYM_000}$",
+        fr"From {HEADREF_END}$",
         fr"From {HEADREF}; {ETYM_000}$",
         fr"From {HEADREF}$",
         fr"From {IT_END}$",
-        fr"From {IT}, {GLOSS}; {ETYM_000}$",
         fr"From {IT}, old infin\. stem of {HEADREF}$",
         fr"From {LANG} {IT}, {ETC}, extended from {NEXT_PREC}$",
         fr"From {LANG} {IT}, {ETYM_02_END}$",
@@ -483,7 +499,7 @@ regexes = [
         fr"From {LANG} {IT}, {IT}, {GRM}; {ETYM_02_END}$",
         fr"From {LANG} {IT}, {IT}, {GRM}; {SEE_HEADREF}\.$",
         fr"From {LANG} {IT}, {IT}, {GRM}$",
-        fr"From {LANG} {IT}, {IT}, on anal\. of {IT}, {IT_END}$",
+        fr"From {LANG} {IT}, {IT}, on anal\. of {ETYM_21_END}$",
         fr"From {LANG} {IT}, {IT}, pp\.$",
         fr"From {LANG} {IT}, {LANG} {IT} \(related to {NEXT_PREC}\)\.$",
         fr"From {NEXT_PREC} \({CF} {REF}\); {ETYM_000}$",
@@ -498,29 +514,29 @@ regexes = [
         fr"From {NEXT_PREC}; cf, {ETYM_02_END}$",  # @@@
         fr"From {NEXT_PREC}$",
         fr"From \(obscure\) {ETYM_08}; see {NED}$",
-        fr"From pp\. of {CAP_WORD}, {QV}$",
+        fr"From pp\. of {HEADREF_END}$",
         fr"From pres\. p\. of {CAP_WORD}\.$",
         fr"From stem of {CAP_WORD}; {ETYM_000}$",
-        fr"Further reduced from {CAP_WORD}, {QV}$",
+        fr"Further reduced from {HEADREF_END}$",
         fr"Late {ETYM_02}, from {ETYM_02_END}$",
         fr"Late {ETYM_02}, from {ETYM_04_END}$",
         fr"Late OE\. {IT} from {ETYM_02_END}$",
         fr"Late OE\. {IT}, {IT}\.",
         fr"Modelled on {ETYM_02_END}$",
         fr"Nonce-use of {ETYM_08}\.$",
-        fr"Northern form of {CAP_WORD}, {QV}$",
+        fr"Northern form of {HEADREF_END}$",
         fr"Not known; only allit\.$",
         fr"Not known\.$",
         fr"Obscure; {ETYM_001}$",
-        fr"Obscure; \? {CF} {CAP_WORD}, and {ETYM_02_END}$",
-        fr"Obscure; \? {ETYM_006}$",
+        fr"Obscure; {ETYM_006}$",
+        fr"Obscure; {ETYM_23_END}$",
+        fr"Obscure; {Q}{CF_HEADREF}, and {ETYM_02_END}$",
         fr"Obscure; appar\. peculiar to {CAP_WORD}\.$",
-        fr"Obscure; see {NED}, {SV} _{CAP_WORD}_\.$",
         fr"Obscure; usually Northern\.$",
         fr"Obscure\.$",
         fr"Obscurely rel\. to {ETYM_08}; see {NED}$",
         fr"OE\. {IT} \({IT}, but not WS\.\)\.$",
-        fr"OE\. {IT} \(Kt\. {IT}\); {IT}, {IT_END}$",
+        fr"OE\. {IT} \(Kt\. {IT}\); {ETYM_21_END}$",
         fr"OE\. {IT} \(Kt\. {IT}\)\.$",  # Kt inconsistency
         fr"OE\. {IT} \(late WS\. {IT}\)\.$",
         fr"OE\. {IT} \(rare\)\.$",
@@ -539,7 +555,7 @@ regexes = [
         fr"OE\. \(rare {LANG}\) {IT}; {ETYM_02_END}$",
         fr"OE\. \(WS\.\) {IT_END}$",
         fr"Origin of name doubtful; see {NED}$",
-        fr"Perh\. distinct verbs; see {NED}, {SV} _{CAP_WORD}_.$",
+        fr"Perh\. distinct verbs; {ETYM_23_END}$",
         fr"Pp\. of {CAP_WORD}.$",
         fr"Prob\. {ETYM_02}, rel\. to {NEXT_PREC}$",
         fr"Prob\. from {NEXT_PREC}$",
@@ -547,27 +563,26 @@ regexes = [
         fr"Prob\. related to {CAP_WORD}\.$",
         fr"Prob\. same as {ETYM_07}$",
         fr"Prob\. same as {NEXT_PREC}$",
-        fr"Reduced form of {CAP_WORD}, {QV}$",
+        fr"Reduced form of {HEADREF_END}$",
         fr"Reduced form of {HEADREF}$",
         fr"Reduced unaccented form of {IT}; {SEE_HEADREF}\.$",
         fr"Reduction of {CAP_WORD}{SUP}, {QV}$",
         fr"Rel\. to {HEADREF}; {ETYM_001}$",
         fr"Related to {CAP_WORD} as {NEXT_PREC}$",
         fr"See {NED} {SV} {IT_END}$",
-        fr"See {NED} s\.vv\. {IT}, {GRM}{SUP}, {IT}.$",
-        fr"See {NED} s\.vv\. {IT}, {IT_END}$",
+        fr"See {NED} {SVV} {ETYM_21_END}$",
+        fr"See {NED} {SVV} {IT}, {GRM}{SUP}, {IT}.$",
         fr"See {NED}, {SV} {IT_END}$",  # inconsistent comma
         fr"See {NED}, {SV} {IT} \d+\.$",  # not quite sure what the last part means
         fr"See {NED}, {SV} {IT}, and {IT_END}$",
         fr"See {NED}$",
-        fr"Shortened from {CAP_WORD}, {QV}$",
         fr"Shortened from {ETYM_02_END}$",
-        fr"Shortened from {ETYM_02}; {SEE_HEADREF}\.$",
+        fr"Shortened from {ETYM_02}; {SEE_HEADREF_END}$",
+        fr"Shortened from {ETYM_20_END}$",
         fr"Shortened from {HEADREF_END}$",
-        fr"Shortened from {IT}, {LANG} {IT_END}$",
-        fr"Stem of {ETYM_01}$",
+        fr"Stem of {ETYM_01_END}$",
         fr"Stem of {ETYM_02_END}$",
-        fr"Stem of {ETYM_02}, or {ETYM_02}; {SEE_HEADREF}\.$",
+        fr"Stem of {ETYM_02}, or {ETYM_02}; {SEE_HEADREF_END}$",
         fr"Stem of {HEADREF} \+ {ETYM_02_END}$",
         fr"Stem of {HEADREF} \+ {ETYM_02}; {ETYM_000}$",
         fr"Stem of {HEADREF} with {LANG} monophthongization\.$",
@@ -578,6 +593,15 @@ regexes = [
         fr"Unaccented reduction of {CAP_WORD}\.$",
         fr"Unknown; {ETYM_000}$",
         fr"Unknown\.$",
+
+
+        fr"{ETYM_13}; {Q}with {IT}, {CF} rare {LANG} {IT_END}$",
+        fr"{LANG} {IT}, {ETC}; {CF} {LANG} \(from {LANG}\) {IT_END}$",
+        fr"{LANG} {IT}, {IT}, {ETC} accented stem of {IT_END}$",
+        fr"Orig\. {IT}, {LANG} {IT}, {GRM}, \(as\) companions\.$",
+        fr"Originally {IT} {GRM} and {IT} {GRMS}; {CF_HEADREF_END}$",
+        fr"{CAP_SEE_HEADREF}; {CF} {LANG} and dial\. {IT}, {GLOSSES_END}$",
+
     ]
 ]
 
