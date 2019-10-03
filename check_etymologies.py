@@ -5,7 +5,7 @@ from utils import extract_etymology, get_entries
 
 success = 0
 failure = 0
-first_error = None
+errors = []
 
 for etymology in sorted(
     (extract_etymology(entry) for entry in get_entries()), key=lambda x: (len(x), x)
@@ -16,9 +16,9 @@ for etymology in sorted(
             success += 1
         else:
             failure += 1
-            if first_error is None:
-                first_error = etymology
+            errors.append(etymology)
 
 print(f"{success} successes; {failure} failures")
-if first_error:
-    print(f"first failure: {first_error}")
+if errors:
+    for error in errors[:10]:
+        print(error)
