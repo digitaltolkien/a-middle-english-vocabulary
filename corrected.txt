@@ -675,7 +675,7 @@ certain person, IV _a_ 69, X 169. _See_ A(n), On(e).
 
 #Angré#, _adj._ angry, XVII 187. [From prec.]
 
-#Angwys#, _n._ grief, IV _b_ 28, [OFr. _anguisse_.]
+#Angwys#, _n._ grief, IV _b_ 28. [OFr. _anguisse_.]
 
 #Ani#, #Any#, _adj._ any, I 2, 18, II 528, &c. [OE. _ǣnig_.] _See_
 Eny, Ony.
@@ -9590,7 +9590,7 @@ all priests, XI _b_ 101. [OFr. _profession_.]
 #Profit-#, #Profytable#, _adj._ profitable, advantageous, VIII _a_ 270,
 XIII _b_ 68. [OFr. _profitable_.]
 
-#Prologe#, _n._ prologue, VII 96, [OFr. _prologue_.]
+#Prologe#, _n._ prologue, VII 96. [OFr. _prologue_.]
 
 #Property#, _n._ property, special virtue, VI 86. [OFr. _proprieté_.]
 
@@ -12117,7 +12117,7 @@ literally_ break) within you, XV _g_ 10. [OE. _tō-brecan_.]
 #To-chine#, _pp._ cracked; _al to-chine_, all scarred, II 262. [OE.
 _tō-cīnan_.]
 
-#To-dele#, _v._ to divide, XIII #a# 55. [OE. _tō-dǣlan_.]
+#To-dele#, _v._ to divide, XIII _a_ 55. [OE. _tō-dǣlan_.]
 
 #To-dryue#, _v._ to dispel, destroy; _subj. sg._ XV _h_ 16. [OE.
 _tō-drīfan_.]
